@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+ "-//Hibernate/Hibernate Mapping DTD//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="uk.co.epii.conservatives.williamcavendishbentinck.tables.Route" table="Route">
+        <id name="id" type="integer" column="ID">
+            <generator class="native"/>
+        </id>
+        <property name="name" column="NAME" type="string" />
+        <property name="minX" column="MIN_X" type="float" />
+        <property name="minY" column="MIN_Y" type="float" />
+        <property name="maxX" column="MAX_X" type="float" />
+        <property name="maxY" column="MAX_Y" type="float" />
+        <property name="deliveredBy" column="DELIVERED_BY" type="integer" />
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+ "-//Hibernate/Hibernate Mapping DTD//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="uk.co.epii.conservatives.williamcavendishbentinck.tables.Person" table="Person">
+        <id name="id" type="integer" column="ID">
+            <generator class="native"/>
+        </id>
+        <property name="surname" column="SURNAME" type="string" />
+        <property name="otherNames" column="OTHER_NAMES" type="string" />
+        <property name="title" column="TITLE" type="string" />
+        <property name="mainContactNumber" column="MAIN_CONTACT_NUMBER" type="string" />
+    </class>
+</hibernate-mapping>

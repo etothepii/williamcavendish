@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+ "-//Hibernate/Hibernate Mapping DTD//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="uk.co.epii.conservatives.williamcavendishbentinck.tables.DeliveryPointAddress" table="DeliveryPointAddress">
+        <id name="uprn" type="long" column="UPRN">
+            <generator class="native"/>
+        </id>
+        <property name="recordIdentifier" column="RECORD_IDENTIFIER" type="integer" />
+        <property name="changeType" column="CHANGE_TYPE" type="string" />
+        <property name="proOrder" column="PRO_ORDER" type="long" />
+        <property name="parentAddressableUprn" column="PARENT_ADDRESSABLE_UPRN" type="long" />
+        <property name="rmUdprn" column="RM_UDPRN" type="integer" />
+        <property name="organisationName" column="ORGANISATION_NAME" type="string" />
+        <property name="departmentName" column="DEPARTMENT_NAME" type="string" />
+        <property name="subBuildingName" column="SUB_BUILDING_NAME" type="string" />
+        <property name="buildingName" column="BUILDING_NAME" type="string" />
+        <property name="buildingNumber" column="BUILDING_NUMBER" type="integer" />
+        <property name="dependentThoroughfareName" column="DEPENDENT_THOROUGHFARE_NAME" type="string" />
+        <property name="thoroughfareName" column="THOROUGHFARE_NAME" type="string" />
+        <property name="doubleDependentLocality" column="DOUBLE_DEPENDENT_LOCALITY" type="string" />
+        <property name="dependentLocality" column="DEPENDENT_LOCALITY" type="string" />
+        <property name="postTown" column="POST_TOWN" type="string" />
+        <property name="postcode" column="POSTCODE" type="string" />
+        <property name="postcodeType" column="POSTCODE_TYPE" type="string" />
+        <property name="welshDependentThoroughfareName" column="WELSH_DEPENDENT_THOROUGHFARE_NAME" type="string" />
+        <property name="welshThoroughfareName" column="WELSH_THOROUGHFARE_NAME" type="string" />
+        <property name="welshDoubleDependentLocality" column="WELSH_DOUBLE_DEPENDENT_LOCALITY" type="string" />
+        <property name="welshDependentLocality" column="WELSH_DEPENDENT_LOCALITY" type="string" />
+        <property name="welshPostTown" column="WELSH_POST_TOWN" type="string" />
+        <property name="poBoxNumber" column="PO_BOX_NUMBER" type="string" />
+        <property name="processDate" column="PROCESS_DATE" type="date" />
+        <property name="startDate" column="START_DATE" type="date" />
+        <property name="endDate" column="END_DATE" type="date" />
+        <property name="lastUpdateDate" column="LAST_UPDATE_DATE" type="date" />
+        <property name="entryDate" column="ENTRY_DATE" type="date" />
+    </class>
+</hibernate-mapping>
