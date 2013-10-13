@@ -8,6 +8,7 @@
         <id name="postcode" type="character" column="POSTCODE">
             <generator class="native"/>
         </id>
+        <property name="accuracy" column="ACCURACY" type="integer" />
         <property name="XCoordinate" column="X_COORDINATE" type="float" />
         <property name="YCoordinate" column="Y_COORDINATE" type="float" />
     </class>

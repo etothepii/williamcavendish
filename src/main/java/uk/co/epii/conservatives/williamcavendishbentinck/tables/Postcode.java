@@ -6,12 +6,14 @@ import java.sql.Date;
 public class Postcode {
 
     private String postcode;
+    private int accuracy;
     private float XCoordinate;
     private float YCoordinate;
 
     public Postcode () {}
-    public Postcode (String postcode, float XCoordinate, float YCoordinate) {
+    public Postcode (String postcode, int accuracy, float XCoordinate, float YCoordinate) {
         this.postcode = postcode;
+        this.accuracy = accuracy;
         this.XCoordinate = XCoordinate;
         this.YCoordinate = YCoordinate;
     }
@@ -22,6 +24,14 @@ public class Postcode {
 
     public void setPostcode(String postcode) {
         this.postcode = postcode;
+    }
+
+    public int getAccuracy() {
+        return accuracy;
+    }
+
+    public void setAccuracy(int accuracy) {
+        this.accuracy = accuracy;
     }
 
     public float getXCoordinate() {
