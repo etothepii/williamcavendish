@@ -4,11 +4,14 @@
  "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="uk.co.epii.conservatives.williamcavendishbentinck.tables.DwellingData" table="DwellingData">
-        <id name="uprn" type="long" column="UPRN">
+    <class name="uk.co.epii.conservatives.williamcavendishbentinck.tables.Dwelling" table="Dwelling">
+        <id name="larn" type="long" column="LARN">
             <generator class="native"/>
         </id>
+        <property name="voaAddress" column="VOA_ADDRESS" type="string" />
+        <property name="postcode" column="POSTCODE" type="character" />
         <property name="councilTaxBand" column="COUNCIL_TAX_BAND" type="character" />
         <property name="accessibility" column="ACCESSIBILITY" type="character" />
+        <property name="uprn" column="UPRN" type="long" />
     </class>
 </hibernate-mapping>
