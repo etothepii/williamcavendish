@@ -14,6 +14,7 @@ public class DeliveryPointAddressExtensions {
     public static String getAddress(DeliveryPointAddress deliveryPointAddress) {
         StringBuilder stringBuilder = new StringBuilder(deliveryPointAddress.getPostcode());
         ArrayList<String> addressLines = new ArrayList<String>();
+        addressLines.add(deliveryPointAddress.getPostTown());
         addressLines.add(deliveryPointAddress.getDependentLocality());
         addressLines.add(deliveryPointAddress.getDoubleDependentLocality());
         addressLines.add(deliveryPointAddress.getThoroughfareName());
