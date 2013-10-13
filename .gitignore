@@ -61,6 +61,9 @@ public_build
 *.iml
 .idea
 
+#shade
+dependency-reduced-pom.xml
+
 # Eclipse
 .classpath
 .project
