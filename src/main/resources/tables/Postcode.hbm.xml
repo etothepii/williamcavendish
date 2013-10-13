@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+ "-//Hibernate/Hibernate Mapping DTD//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="uk.co.epii.conservatives.williamcavendishbentinck.tables.Postcode" table="Postcode">
+        <id name="postcode" type="character" column="POSTCODE">
+            <generator class="native"/>
+        </id>
+        <property name="XCoordinate" column="X_COORDINATE" type="float" />
+        <property name="YCoordinate" column="Y_COORDINATE" type="float" />
+    </class>
+</hibernate-mapping>
