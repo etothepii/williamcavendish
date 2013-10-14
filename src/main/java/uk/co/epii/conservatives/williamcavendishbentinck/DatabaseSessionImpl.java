@@ -6,8 +6,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
+import sun.util.LocaleServiceProviderPool;
 import uk.co.epii.conservatives.williamcavendishbentinck.tables.BLPU;
 import uk.co.epii.conservatives.williamcavendishbentinck.tables.DeliveryPointAddress;
+import uk.co.epii.conservatives.williamcavendishbentinck.tables.Dwelling;
 import uk.co.epii.spencerperceval.tuple.Duple;
 
 import java.util.ArrayList;
@@ -66,5 +68,26 @@ public class DatabaseSessionImpl implements DatabaseSession {
             houses.add(new Duple<BLPU, DeliveryPointAddress>(blpu, deliveryPointAddress));
         }
         return houses;
+    }
+
+    public void upload(List list) {
+        Session session = getSessionFactory().openSession();
+        session.beginTransaction();
+        try {
+            for (int i = 0; i < list.size(); i++) {
+                Object object = list.get(i);
+                session.save(object);
+                if (i % 20 == 0) {
+                    session.flush();
+                    session.clear();
+                }
+            }
+            session.flush();
+            session.clear();
+        }
+        finally {
+            session.getTransaction().commit();
+            session.close();
+        }
     }
 }

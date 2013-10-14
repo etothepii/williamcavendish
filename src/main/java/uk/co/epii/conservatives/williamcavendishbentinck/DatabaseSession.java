@@ -16,5 +16,6 @@ public interface DatabaseSession {
 
     public SessionFactory getSessionFactory();
     public List<Duple<BLPU, DeliveryPointAddress>> getHouses(String postcode);
+    public void upload(List list);
 
 }
