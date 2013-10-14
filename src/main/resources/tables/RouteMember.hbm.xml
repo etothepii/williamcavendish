@@ -6,7 +6,7 @@
 <hibernate-mapping>
     <class name="uk.co.epii.conservatives.williamcavendishbentinck.tables.RouteMember" table="RouteMember">
         <id name="routeId" type="integer" column="ROUTE_ID">
-            <generator class="native"/>
+            <generator class="assigned"/>
         </id>
         <property name="uprn" column="UPRN" type="long" />
     </class>

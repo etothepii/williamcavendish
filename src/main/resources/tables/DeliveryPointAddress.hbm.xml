@@ -6,7 +6,7 @@
 <hibernate-mapping>
     <class name="uk.co.epii.conservatives.williamcavendishbentinck.tables.DeliveryPointAddress" table="DeliveryPointAddress">
         <id name="uprn" type="long" column="UPRN">
-            <generator class="native"/>
+            <generator class="assigned"/>
         </id>
         <property name="recordIdentifier" column="RECORD_IDENTIFIER" type="integer" />
         <property name="changeType" column="CHANGE_TYPE" type="string" />

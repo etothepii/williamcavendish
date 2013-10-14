@@ -6,7 +6,7 @@
 <hibernate-mapping>
     <class name="uk.co.epii.conservatives.williamcavendishbentinck.tables.Route" table="Route">
         <id name="id" type="integer" column="ID">
-            <generator class="native"/>
+            <generator class="assigned"/>
         </id>
         <property name="name" column="NAME" type="string" />
         <property name="minX" column="MIN_X" type="float" />

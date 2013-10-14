@@ -7,13 +7,13 @@ public class Dwelling {
 
     private String voaAddress;
     private String postcode;
-    private String councilTaxBand;
-    private Long larn;
-    private String accessibility;
+    private char councilTaxBand;
+    private String larn;
+    private Character accessibility;
     private Long uprn;
 
     public Dwelling () {}
-    public Dwelling (String voaAddress, String postcode, String councilTaxBand, Long larn, String accessibility, Long uprn) {
+    public Dwelling (String voaAddress, String postcode, char councilTaxBand, String larn, Character accessibility, Long uprn) {
         this.voaAddress = voaAddress;
         this.postcode = postcode;
         this.councilTaxBand = councilTaxBand;
@@ -38,27 +38,27 @@ public class Dwelling {
         this.postcode = postcode;
     }
 
-    public String getCouncilTaxBand() {
+    public char getCouncilTaxBand() {
         return councilTaxBand;
     }
 
-    public void setCouncilTaxBand(String councilTaxBand) {
+    public void setCouncilTaxBand(char councilTaxBand) {
         this.councilTaxBand = councilTaxBand;
     }
 
-    public Long getLarn() {
+    public String getLarn() {
         return larn;
     }
 
-    public void setLarn(Long larn) {
+    public void setLarn(String larn) {
         this.larn = larn;
     }
 
-    public String getAccessibility() {
+    public Character getAccessibility() {
         return accessibility;
     }
 
-    public void setAccessibility(String accessibility) {
+    public void setAccessibility(Character accessibility) {
         this.accessibility = accessibility;
     }
 

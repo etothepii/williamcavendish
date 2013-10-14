@@ -5,8 +5,8 @@
 
 <hibernate-mapping>
     <class name="uk.co.epii.conservatives.williamcavendishbentinck.tables.Postcode" table="Postcode">
-        <id name="postcode" type="character" column="POSTCODE">
-            <generator class="native"/>
+        <id name="postcode" type="string" column="POSTCODE">
+            <generator class="assigned"/>
         </id>
         <property name="accuracy" column="ACCURACY" type="integer" />
         <property name="XCoordinate" column="X_COORDINATE" type="float" />
