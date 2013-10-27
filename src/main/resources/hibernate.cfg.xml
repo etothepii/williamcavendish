@@ -10,16 +10,6 @@
         <property name="hibernate.connection.driver_class">
             com.mysql.jdbc.Driver
         </property>
-
-        <property name="hibernate.connection.url">
-            jdbc:mysql://localhost/frederickNorth
-        </property>
-        <property name="hibernate.connection.username">
-            frederickNorth
-        </property>
-        <property name="hibernate.connection.password">
-            frederickNorth1
-        </property>
         <mapping resource="tables/BLPU.hbm.xml"/>
         <mapping resource="tables/DeliveryPointAddress.hbm.xml"/>
         <mapping resource="tables/Dwelling.hbm.xml"/>
