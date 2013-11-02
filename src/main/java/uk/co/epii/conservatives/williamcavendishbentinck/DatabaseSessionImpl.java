@@ -6,12 +6,11 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
-import sun.util.LocaleServiceProviderPool;
 import uk.co.epii.conservatives.williamcavendishbentinck.tables.BLPU;
 import uk.co.epii.conservatives.williamcavendishbentinck.tables.DeliveryPointAddress;
-import uk.co.epii.conservatives.williamcavendishbentinck.tables.Dwelling;
 import uk.co.epii.spencerperceval.tuple.Duple;
 
+import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +25,8 @@ public class DatabaseSessionImpl implements DatabaseSession {
     private SessionFactory sessionFactory;
     private ServiceRegistry serviceRegistry;
     private Configuration configuration;
+    private String rawPostcodeSql = "SELECT %1$s.* FROM %2$s a LEFT JOIN %3$s b ON a.%4$s = b.%4$s WHERE a.POSTCODE = :postcode ORDER BY a.%5$s";
+    private String rawRectangleSql = "SELECT %1$s.* FROM %2$s a LEFT JOIN %3$s b ON a.%4$s = b.%4$s WHERE a.X_COORDINATE >= :minX AND a.X_COORDINATE <= :maxX AND a.Y_COORDINATE >= :minY AND a.Y_COORDINATE <= :maxY ORDER BY a.%5$s";
 
     public DatabaseSessionImpl() {
         try {
@@ -49,6 +50,14 @@ public class DatabaseSessionImpl implements DatabaseSession {
         configuration.setProperty("hibernate.connection.url", connection);
     }
 
+    public void setRawPostcodeSql(String rawPostcodeSql) {
+        this.rawPostcodeSql = rawPostcodeSql;
+    }
+
+    public void setRawRectangleSql(String rawRectangleSql) {
+        this.rawRectangleSql = rawRectangleSql;
+    }
+
     public void init() {
         configuration.configure();
         serviceRegistry = new ServiceRegistryBuilder().
@@ -62,73 +71,69 @@ public class DatabaseSessionImpl implements DatabaseSession {
     }
 
     @Override
-    public List<Duple<BLPU, DeliveryPointAddress>> getHouses(String postcode) {
+    public <A, B> List<Duple<A, B>> fromPostcode(String postcode, Class<A> classA, Class<B> classB, String joinColumn, String orderColumn) {
         Session session = sessionFactory.openSession();
-        String blpuSql = "SELECT b.* FROM BLPU b INNER JOIN DeliveryPointAddress d ON d.UPRN = b.UPRN AND d.POSTCODE = :postcode ORDER BY d.UPRN";
-        SQLQuery query = session.createSQLQuery(blpuSql);
-        query.addEntity(BLPU.class);
-        query.setParameter("postcode", postcode);
-        List<BLPU> blpuList = query.list();
-        String deliveryPointSql = "SELECT d.* FROM BLPU b INNER JOIN DeliveryPointAddress d ON d.UPRN = b.UPRN AND d.POSTCODE = :postcode ORDER BY d.UPRN";
-        query = session.createSQLQuery(deliveryPointSql);
-        query.addEntity(DeliveryPointAddress.class);
-        query.setParameter("postcode", postcode);
-        List<DeliveryPointAddress> deliveryPointAddressList = query.list();
-        int size = Math.max(blpuList.size(), deliveryPointAddressList.size());
-        List<Duple<BLPU, DeliveryPointAddress>> houses = new ArrayList<Duple<BLPU, DeliveryPointAddress>>(size);
-        for (int i = 0; i < size; i++) {
-            BLPU blpu = blpuList.get(i);
-            DeliveryPointAddress deliveryPointAddress = deliveryPointAddressList.get(i);
-            if (deliveryPointAddress.getUprn() != blpu.getUprn()) {
-                throw new RuntimeException("Two of the results returned have different UPRNs");
+        try {
+            SQLQuery query = session.createSQLQuery(
+                    String.format(rawPostcodeSql, "a", classA.getSimpleName(), classB.getSimpleName(), joinColumn, orderColumn));
+            query.addEntity(classA);
+            query.setParameter("postcode", postcode);
+            List<A> aList = query.list();
+            query = session.createSQLQuery(
+                    String.format(rawPostcodeSql, "b", classA.getSimpleName(), classB.getSimpleName(), joinColumn, orderColumn));
+            query.addEntity(classB);
+            query.setParameter("postcode", postcode);
+            List<B> bList = query.list();
+            if (bList.size() != aList.size()) {
+                throw new IllegalStateException("The returned lists are of different sizes, this should not have occurred");
             }
-            houses.add(new Duple<BLPU, DeliveryPointAddress>(blpu, deliveryPointAddress));
+            List<Duple<A, B>> houses = new ArrayList<Duple<A, B>>(aList.size());
+            for (int i = 0; i < aList.size(); i++) {
+                A a = aList.get(i);
+                B b = bList.get(i);
+                houses.add(new Duple<A, B>(a, b));
+            }
+            return houses;
         }
-        return houses;
+        finally {
+            session.close();
+        }
     }
 
     @Override
-    public List<Duple<BLPU, DeliveryPointAddress>> getHouses(Point2D.Float location, float radius) {
+    public <A, B> List<Duple<A, B>> containedWithin(Rectangle rectangle, Class<A> classA, Class<B> classB, String joinColumn, String orderColumn) {
         Session session = sessionFactory.openSession();
-        String blpuSql = "SELECT b.* FROM BLPU b INNER JOIN DeliveryPointAddress d ON d.UPRN = b.UPRN " +
-                "WHERE b.X_COORDINATE >= :minX " +
-                "AND b.X_COORDINATE <= :maxX " +
-                "AND b.Y_COORDINATE <= :minY " +
-                "AND b.Y_COORDINATE <= :maxY ORDER BY d.UPRN";
-        SQLQuery query = session.createSQLQuery(blpuSql);
-        query.addEntity(BLPU.class);
-        query.setParameter("minX", location.getX() - radius);
-        query.setParameter("maxX", location.getX() + radius);
-        query.setParameter("minY", location.getY() - radius);
-        query.setParameter("maxY", location.getY() + radius);
-        List<BLPU> blpuList = query.list();
-        String deliveryPointSql = "SELECT d.* FROM BLPU b INNER JOIN DeliveryPointAddress d ON d.UPRN = b.UPRN " +
-                "WHERE b.X_COORDINATE >= :minX " +
-                "AND b.X_COORDINATE <= :maxX " +
-                "AND b.Y_COORDINATE <= :minY " +
-                "AND b.Y_COORDINATE <= :maxY ORDER BY d.UPRN";
-        query = session.createSQLQuery(deliveryPointSql);
-        query.addEntity(DeliveryPointAddress.class);
-        query.setParameter("minX", location.getX() - radius);
-        query.setParameter("maxX", location.getX() + radius);
-        query.setParameter("minY", location.getY() - radius);
-        query.setParameter("maxY", location.getY() + radius);
-        List<DeliveryPointAddress> deliveryPointAddressList = query.list();
-        int size = Math.max(blpuList.size(), deliveryPointAddressList.size());
-        List<Duple<BLPU, DeliveryPointAddress>> houses = new ArrayList<Duple<BLPU, DeliveryPointAddress>>(size);
-        for (int i = 0; i < size; i++) {
-            BLPU blpu = blpuList.get(i);
-            DeliveryPointAddress deliveryPointAddress = deliveryPointAddressList.get(i);
-            if (deliveryPointAddress.getUprn() != blpu.getUprn()) {
-                throw new RuntimeException("Two of the results returned have different UPRNs");
+        try {
+            SQLQuery query = session.createSQLQuery(
+                    String.format(rawRectangleSql, "a", classA.getSimpleName(), classB.getSimpleName(), joinColumn, orderColumn));
+            query.addEntity(classA);
+            query.setParameter("minX", rectangle.getX());
+            query.setParameter("maxX", rectangle.getX() + rectangle.getWidth());
+            query.setParameter("minY", rectangle.getY());
+            query.setParameter("maxY", rectangle.getY() + rectangle.getHeight());
+            List<A> aList = query.list();
+            query = session.createSQLQuery(
+                    String.format(rawRectangleSql, "b", classA.getSimpleName(), classB.getSimpleName(), joinColumn, orderColumn));
+            query.addEntity(classB);
+            query.setParameter("minX", rectangle.getX());
+            query.setParameter("maxX", rectangle.getX() + rectangle.getWidth());
+            query.setParameter("minY", rectangle.getY());
+            query.setParameter("maxY", rectangle.getY() + rectangle.getHeight());
+            List<B> bList = query.list();
+            if (bList.size() != aList.size()) {
+                throw new IllegalStateException("The returned lists are of different sizes, this should not have occurred");
             }
-            double dx = Math.abs(blpu.getXCoordinate() - location.getX());
-            double dy = Math.abs(blpu.getYCoordinate() - location.getY());
-            if (dx * dx + dy * dy <= radius * (double)radius) {
-                houses.add(new Duple<BLPU, DeliveryPointAddress>(blpu, deliveryPointAddress));
+            List<Duple<A, B>> houses = new ArrayList<Duple<A, B>>(aList.size());
+            for (int i = 0; i < aList.size(); i++) {
+                A a = aList.get(i);
+                B b = bList.get(i);
+                houses.add(new Duple<A, B>(a, b));
             }
+            return houses;
         }
-        return houses;
+        finally {
+            session.close();
+        }
     }
 
     public void upload(List list) {
