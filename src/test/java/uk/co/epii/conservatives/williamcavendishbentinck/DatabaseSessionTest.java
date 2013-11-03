@@ -41,6 +41,9 @@ public class DatabaseSessionTest {
         List<Duple<BLPU, DeliveryPointAddress>> list = databaseSessionImpl.containedWithin(
                 new Rectangle(537483, 180935, 67, 10), BLPU.class, DeliveryPointAddress.class, "UPRN", "UPRN");
         for (Duple<BLPU, DeliveryPointAddress> duple : list) {
+            if (duple.getFirst() == null || duple.getSecond() == null) {
+                continue;
+            }
             System.out.println(String.format("%s: (%.2f, %.2f)",
                     DeliveryPointAddressExtensions.getAddress(duple.getSecond()),
                     duple.getFirst().getXCoordinate(), duple.getFirst().getYCoordinate()));
