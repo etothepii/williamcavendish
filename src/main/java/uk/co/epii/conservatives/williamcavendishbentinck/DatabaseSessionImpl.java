@@ -6,14 +6,13 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
-import uk.co.epii.conservatives.williamcavendishbentinck.tables.BLPU;
-import uk.co.epii.conservatives.williamcavendishbentinck.tables.DeliveryPointAddress;
 import uk.co.epii.conservatives.williamcavendishbentinck.tables.Postcode;
 import uk.co.epii.spencerperceval.tuple.Duple;
 
 import java.awt.*;
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -26,8 +25,12 @@ public class DatabaseSessionImpl implements DatabaseSession {
     private SessionFactory sessionFactory;
     private ServiceRegistry serviceRegistry;
     private Configuration configuration;
-    private String rawPostcodeSql = "SELECT %1$s.* FROM %2$s a LEFT JOIN %3$s b ON a.%4$s = b.%4$s WHERE a.POSTCODE = :postcode ORDER BY a.%5$s";
-    private String rawRectangleSql = "SELECT %1$s.* FROM %2$s a LEFT JOIN %3$s b ON a.%4$s = b.%4$s WHERE a.X_COORDINATE >= :minX AND a.X_COORDINATE <= :maxX AND a.Y_COORDINATE >= :minY AND a.Y_COORDINATE <= :maxY ORDER BY a.%5$s";
+    private String rawDwellingsFromPostcodeSql = "SELECT %1$s.* FROM %2$s a LEFT JOIN %3$s b ON a.%4$s = b.%4$s WHERE a.POSTCODE = :postcode ORDER BY a.%5$s";
+    private String rawDwellingsFromRectangleSql = "SELECT %1$s.* FROM %2$s a LEFT JOIN %3$s b ON a.%4$s = b.%4$s WHERE a.X_COORDINATE >= :minX AND a.X_COORDINATE <= :maxX AND a.Y_COORDINATE >= :minY AND a.Y_COORDINATE <= :maxY ORDER BY a.%5$s";
+    private String rawPostcodeFromPostcodeSql = "SELECT * FROM Postcode WHERE POSTCODE = :postcode";
+    private String rawPostcodesFromPostcodeRegexpSql = "SELECT * FROM Postcode WHERE POSTCODE RLIKE :postcode";
+    private String rawPostcodesFromRectangleSql = "SELECT * FROM Postcode WHERE X_COORDINATE >= :minX AND X_COORDINATE <= :maxX AND Y_COORDINATE >= :minY AND Y_COORDINATE <= :maxY";
+    private String rawPostcodesFromBLPURectangleSql = "SELECT p.* FROM Postcode p INNER JOIN DeliveryPointAddress a ON a.POSTCODE = p.POSTCODE INNER JOIN BLPU b ON b.UPRN = a.UPRN WHERE b.X_COORDINATE >= :minX AND b.X_COORDINATE <= :maxX AND b.Y_COORDINATE >= :minY AND b.Y_COORDINATE <= :maxY GROUP BY a.POSTCODE";
 
     public DatabaseSessionImpl() {
         try {
@@ -51,12 +54,29 @@ public class DatabaseSessionImpl implements DatabaseSession {
         configuration.setProperty("hibernate.connection.url", connection);
     }
 
-    public void setRawPostcodeSql(String rawPostcodeSql) {
-        this.rawPostcodeSql = rawPostcodeSql;
+    public void setRawDwellingsFromPostcodeSql(String rawDwellingsFromPostcodeSql) {
+        this.rawDwellingsFromPostcodeSql = rawDwellingsFromPostcodeSql;
     }
 
-    public void setRawRectangleSql(String rawRectangleSql) {
-        this.rawRectangleSql = rawRectangleSql;
+    public void setRawDwellingsFromRectangleSql(String rawDwellingsFromRectangleSql) {
+        this.rawDwellingsFromRectangleSql = rawDwellingsFromRectangleSql;
+    }
+
+
+    public void setRawPostcodeFromPostcodeSql(String rawPostcodeFromPostcodeSql) {
+        this.rawPostcodeFromPostcodeSql = rawPostcodeFromPostcodeSql;
+    }
+
+    public void setRawPostcodesFromPostcodeRegexpSql(String rawPostcodesFromPostcodeRegexpSql) {
+        this.rawPostcodesFromPostcodeRegexpSql = rawPostcodesFromPostcodeRegexpSql;
+    }
+
+    public void setRawPostcodesFromRectangleSql(String rawPostcodesFromRectangleSql) {
+        this.rawPostcodesFromRectangleSql = rawPostcodesFromRectangleSql;
+    }
+
+    public void setRawPostcodesFromBLPURectangleSql(String rawPostcodesFromBLPURectangleSql) {
+        this.rawPostcodesFromBLPURectangleSql = rawPostcodesFromBLPURectangleSql;
     }
 
     public void init() {
@@ -72,10 +92,10 @@ public class DatabaseSessionImpl implements DatabaseSession {
     }
 
     @Override
-    public List<Postcode> getPostcodes(String regexp) {
+    public Collection<Postcode> getPostcodes(String regexp) {
         Session session = sessionFactory.openSession();
         try {
-            SQLQuery query = session.createSQLQuery("SELECT * FROM Postcode WHERE POSTCODE RLIKE :postcode");
+            SQLQuery query = session.createSQLQuery(rawPostcodesFromPostcodeRegexpSql);
             query.addEntity(Postcode.class);
             query.setParameter("postcode", regexp);
             return query.list();
@@ -86,10 +106,40 @@ public class DatabaseSessionImpl implements DatabaseSession {
     }
 
     @Override
+    public Collection<Postcode> getPostcodesWithin(Rectangle rectangle) {
+        Session session = sessionFactory.openSession();
+        try {
+            SQLQuery query = session.createSQLQuery(rawPostcodesFromRectangleSql);
+            query.addEntity(Postcode.class);
+            query.setParameter("minX", rectangle.getMinX());
+            query.setParameter("minY", rectangle.getMinY());
+            query.setParameter("maxX", rectangle.getMaxX());
+            query.setParameter("maxY", rectangle.getMaxY());
+            HashMap<String, Postcode> found = new HashMap<String, Postcode>();
+            for (Postcode postcode : (List<Postcode>)query.list()) {
+                found.put(postcode.getPostcode(), postcode);
+            }
+            query = session.createSQLQuery(rawPostcodesFromBLPURectangleSql);
+            query.addEntity(Postcode.class);
+            query.setParameter("minX", rectangle.getMinX());
+            query.setParameter("minY", rectangle.getMinY());
+            query.setParameter("maxX", rectangle.getMaxX());
+            query.setParameter("maxY", rectangle.getMaxY());
+            for (Postcode postcode : (List<Postcode>)query.list()) {
+                found.put(postcode.getPostcode(), postcode);
+            }
+            return found.values();
+        }
+        finally {
+            session.close();
+        }
+    }
+
+    @Override
     public Postcode getPostcode(String postcode) {
         Session session = sessionFactory.openSession();
         try {
-            SQLQuery query = session.createSQLQuery("SELECT * FROM Postcode WHERE POSTCODE = :postcode");
+            SQLQuery query = session.createSQLQuery(rawPostcodeFromPostcodeSql);
             query.addEntity(Postcode.class);
             query.setParameter("postcode", postcode);
             List<Postcode> postcodes = query.list();
@@ -105,12 +155,12 @@ public class DatabaseSessionImpl implements DatabaseSession {
         Session session = sessionFactory.openSession();
         try {
             SQLQuery query = session.createSQLQuery(
-                    String.format(rawPostcodeSql, "a", classA.getSimpleName(), classB.getSimpleName(), joinColumn, orderColumn));
+                    String.format(rawDwellingsFromPostcodeSql, "a", classA.getSimpleName(), classB.getSimpleName(), joinColumn, orderColumn));
             query.addEntity(classA);
             query.setParameter("postcode", postcode);
             List<A> aList = query.list();
             query = session.createSQLQuery(
-                    String.format(rawPostcodeSql, "b", classA.getSimpleName(), classB.getSimpleName(), joinColumn, orderColumn));
+                    String.format(rawDwellingsFromPostcodeSql, "b", classA.getSimpleName(), classB.getSimpleName(), joinColumn, orderColumn));
             query.addEntity(classB);
             query.setParameter("postcode", postcode);
             List<B> bList = query.list();
@@ -135,7 +185,7 @@ public class DatabaseSessionImpl implements DatabaseSession {
         Session session = sessionFactory.openSession();
         try {
             SQLQuery query = session.createSQLQuery(
-                    String.format(rawRectangleSql, "a", classA.getSimpleName(), classB.getSimpleName(), joinColumn, orderColumn));
+                    String.format(rawDwellingsFromRectangleSql, "a", classA.getSimpleName(), classB.getSimpleName(), joinColumn, orderColumn));
             query.addEntity(classA);
             query.setParameter("minX", rectangle.getX());
             query.setParameter("maxX", rectangle.getX() + rectangle.getWidth());
@@ -143,7 +193,7 @@ public class DatabaseSessionImpl implements DatabaseSession {
             query.setParameter("maxY", rectangle.getY() + rectangle.getHeight());
             List<A> aList = query.list();
             query = session.createSQLQuery(
-                    String.format(rawRectangleSql, "b", classA.getSimpleName(), classB.getSimpleName(), joinColumn, orderColumn));
+                    String.format(rawDwellingsFromRectangleSql, "b", classA.getSimpleName(), classB.getSimpleName(), joinColumn, orderColumn));
             query.addEntity(classB);
             query.setParameter("minX", rectangle.getX());
             query.setParameter("maxX", rectangle.getX() + rectangle.getWidth());

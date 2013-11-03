@@ -9,6 +9,7 @@ import uk.co.epii.spencerperceval.tuple.Duple;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -20,7 +21,8 @@ public interface DatabaseSession {
 
     public SessionFactory getSessionFactory();
     public Postcode getPostcode(String postcode);
-    public List<Postcode> getPostcodes(String postcodeRegexp);
+    public Collection<Postcode> getPostcodes(String postcodeRegexp);
+    public Collection<Postcode> getPostcodesWithin(Rectangle rectangle);
     public <A, B> List<Duple<A, B>> fromPostcode(String postcode, Class<A> classA, Class<B> classB, String joinColumn, String orderColumn);
     public <A, B> List<Duple<A, B>> containedWithin(Rectangle rectangle, Class<A> classA, Class<B> classB, String joinColumn, String orderColumn);
     public void upload(List list);
