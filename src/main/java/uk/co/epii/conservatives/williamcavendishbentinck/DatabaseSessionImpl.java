@@ -8,6 +8,7 @@ import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 import uk.co.epii.conservatives.williamcavendishbentinck.tables.BLPU;
 import uk.co.epii.conservatives.williamcavendishbentinck.tables.DeliveryPointAddress;
+import uk.co.epii.conservatives.williamcavendishbentinck.tables.Postcode;
 import uk.co.epii.spencerperceval.tuple.Duple;
 
 import java.awt.*;
@@ -68,6 +69,35 @@ public class DatabaseSessionImpl implements DatabaseSession {
     @Override
     public SessionFactory getSessionFactory() {
         return sessionFactory;
+    }
+
+    @Override
+    public List<Postcode> getPostcodes(String regexp) {
+        Session session = sessionFactory.openSession();
+        try {
+            SQLQuery query = session.createSQLQuery("SELECT * FROM Postcode WHERE POSTCODE RLIKE :postcode");
+            query.addEntity(Postcode.class);
+            query.setParameter("postcode", regexp);
+            return query.list();
+        }
+        finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public Postcode getPostcode(String postcode) {
+        Session session = sessionFactory.openSession();
+        try {
+            SQLQuery query = session.createSQLQuery("SELECT * FROM Postcode WHERE POSTCODE = :postcode");
+            query.addEntity(Postcode.class);
+            query.setParameter("postcode", postcode);
+            List<Postcode> postcodes = query.list();
+            return postcodes.isEmpty() ? null : postcodes.get(0);
+        }
+        finally {
+            session.close();
+        }
     }
 
     @Override
