@@ -11,15 +11,19 @@ public class Dwelling {
     private String larn;
     private Character accessibility;
     private Long uprn;
+    private Float XCoordinateOverride;
+    private Float YCoordinateOverride;
 
     public Dwelling () {}
-    public Dwelling (String voaAddress, String postcode, char councilTaxBand, String larn, Character accessibility, Long uprn) {
+    public Dwelling (String voaAddress, String postcode, char councilTaxBand, String larn, Character accessibility, Long uprn, Float XCoordinateOverride, Float YCoordinateOverride) {
         this.voaAddress = voaAddress;
         this.postcode = postcode;
         this.councilTaxBand = councilTaxBand;
         this.larn = larn;
         this.accessibility = accessibility;
         this.uprn = uprn;
+        this.XCoordinateOverride = XCoordinateOverride;
+        this.YCoordinateOverride = YCoordinateOverride;
     }
 
     public String getVoaAddress() {
@@ -68,6 +72,22 @@ public class Dwelling {
 
     public void setUprn(Long uprn) {
         this.uprn = uprn;
+    }
+
+    public Float getXCoordinateOverride() {
+        return XCoordinateOverride;
+    }
+
+    public void setXCoordinateOverride(Float XCoordinateOverride) {
+        this.XCoordinateOverride = XCoordinateOverride;
+    }
+
+    public Float getYCoordinateOverride() {
+        return YCoordinateOverride;
+    }
+
+    public void setYCoordinateOverride(Float YCoordinateOverride) {
+        this.YCoordinateOverride = YCoordinateOverride;
     }
 
 }

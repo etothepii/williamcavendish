@@ -6,12 +6,12 @@ import java.sql.Date;
 public class RouteMember {
 
     private int routeId;
-    private long uprn;
+    private String larn;
 
     public RouteMember () {}
-    public RouteMember (int routeId, long uprn) {
+    public RouteMember (int routeId, String larn) {
         this.routeId = routeId;
-        this.uprn = uprn;
+        this.larn = larn;
     }
 
     public int getRouteId() {
@@ -22,12 +22,12 @@ public class RouteMember {
         this.routeId = routeId;
     }
 
-    public long getUprn() {
-        return uprn;
+    public String getLarn() {
+        return larn;
     }
 
-    public void setUprn(long uprn) {
-        this.uprn = uprn;
+    public void setLarn(String larn) {
+        this.larn = larn;
     }
 
 }

@@ -13,5 +13,7 @@
         <property name="councilTaxBand" column="COUNCIL_TAX_BAND" type="character" />
         <property name="accessibility" column="ACCESSIBILITY" type="character" />
         <property name="uprn" column="UPRN" type="long" />
+        <property name="XCoordinateOverride" column="X_COORDINATE_OVERRIDE" type="float" />
+        <property name="YCoordinateOverride" column="Y_COORDINATE_OVERRIDE" type="float" />
     </class>
 </hibernate-mapping>
