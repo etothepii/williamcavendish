@@ -8,6 +8,6 @@
         <id name="routeId" type="integer" column="ROUTE_ID">
             <generator class="assigned"/>
         </id>
-        <property name="uprn" column="UPRN" type="long" />
+        <property name="larn" column="LARN" type="string" />
     </class>
 </hibernate-mapping>
