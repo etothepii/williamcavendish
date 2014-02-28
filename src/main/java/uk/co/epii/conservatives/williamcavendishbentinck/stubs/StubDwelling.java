@@ -28,12 +28,16 @@ public class StubDwelling implements Groupable<StubDwelling> {
     }
 
     public String[][] getLinedUp(StubDwelling other) {
-        int[] matchIndex = findLongestMatchIndex(other);
+        return getLinedUpAddresses(this.address, other.address);
+    }
+
+    public static String[][] getLinedUpAddresses(String[] A, String[] B) {
+        int[] matchIndex = findLongestMatchIndex(A, B);
         if (matchIndex == null) {
             return null;
         }
-        String[] a = Arrays.copyOf(address, address.length);
-        String[] b = Arrays.copyOf(other.address, other.address.length);
+        String[] a = Arrays.copyOf(A, A.length);
+        String[] b = Arrays.copyOf(B, B.length);
         if (matchIndex[0] < matchIndex[1]) {
             int prepend = matchIndex[1] - matchIndex[0];
             String[] newA = new String[prepend + a.length];
@@ -58,13 +62,17 @@ public class StubDwelling implements Groupable<StubDwelling> {
     }
 
     private int[] findLongestMatchIndex(StubDwelling other) {
+        return findLongestMatchIndex(this.address, other.address);
+    }
+
+    private static int[] findLongestMatchIndex(String[] a, String[] b) {
         int[] longestMatch = null;
         int longestMatchLength = Integer.MIN_VALUE;
-        for (int i = 0; i < address.length; i++) {
-            for (int j = 0; j < other.address.length; j++) {
-                if (address[i] != null && address[i].equals(other.address[j]) && (longestMatch == null || longestMatchLength > address[i].length())) {
+        for (int i = 0; i < a.length; i++) {
+            for (int j = 0; j < b.length; j++) {
+                if (a[i] != null && a[i].equals(b[j]) && (longestMatch == null || longestMatchLength > a[i].length())) {
                     longestMatch = new int[] {i, j};
-                    longestMatchLength = address[i].length();
+                    longestMatchLength = a[i].length();
                 }
             }
         }
@@ -92,8 +100,20 @@ public class StubDwelling implements Groupable<StubDwelling> {
 
     @Override
     public int d(StubDwelling other) {
-        String[][] linedUp = getLinedUp(other);
+        String[][] linedUp = getLinedUpAddresses(
+                NulllessCopy(this.address, "NULL_FILLER"),
+                NulllessCopy(other.address, "NULL_FILLER"));
         return ArrayExtensions.d(linedUp[0], linedUp[1]);
+    }
+
+    private String[] NulllessCopy(String[] address, String null_filler) {
+        String[] copy = Arrays.copyOf(address, address.length);
+        for (int i = 0; i < copy.length; i++) {
+            if (copy[i] == null) {
+                copy[i] = null_filler;
+            }
+        }
+        return copy;
     }
 
     @Override
