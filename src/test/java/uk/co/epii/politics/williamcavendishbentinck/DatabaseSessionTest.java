@@ -1,12 +1,12 @@
-package uk.co.epii.conservatives.williamcavendishbentinck;
+package uk.co.epii.politics.williamcavendishbentinck;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import uk.co.epii.conservatives.williamcavendishbentinck.extensions.DeliveryPointAddressExtensions;
-import uk.co.epii.conservatives.williamcavendishbentinck.tables.BLPU;
-import uk.co.epii.conservatives.williamcavendishbentinck.tables.DeliveryPointAddress;
+import uk.co.epii.politics.williamcavendishbentinck.extensions.DeliveryPointAddressExtensions;
+import uk.co.epii.politics.williamcavendishbentinck.tables.BLPU;
+import uk.co.epii.politics.williamcavendishbentinck.tables.DeliveryPointAddress;
 import uk.co.epii.spencerperceval.tuple.Duple;
 import java.awt.*;
 import java.util.List;

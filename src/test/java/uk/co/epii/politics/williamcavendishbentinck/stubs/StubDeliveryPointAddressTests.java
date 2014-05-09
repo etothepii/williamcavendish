@@ -1,8 +1,8 @@
-package uk.co.epii.conservatives.williamcavendishbentinck.stubs;
+package uk.co.epii.politics.williamcavendishbentinck.stubs;
 
 import junit.framework.Assert;
 import org.junit.Test;
-import uk.co.epii.conservatives.williamcavendishbentinck.tables.DeliveryPointAddress;
+import uk.co.epii.politics.williamcavendishbentinck.tables.DeliveryPointAddress;
 
 import static junit.framework.TestCase.assertEquals;
 

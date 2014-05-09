@@ -1,8 +1,7 @@
-package uk.co.epii.conservatives.williamcavendishbentinck.stubs;
+package uk.co.epii.politics.williamcavendishbentinck.stubs;
 
-import junit.framework.Assert;
 import org.junit.Test;
-import uk.co.epii.conservatives.williamcavendishbentinck.tables.Dwelling;
+import uk.co.epii.politics.williamcavendishbentinck.tables.Dwelling;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
