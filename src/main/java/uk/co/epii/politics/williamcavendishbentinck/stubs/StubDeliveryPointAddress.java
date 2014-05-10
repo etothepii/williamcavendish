@@ -1,6 +1,6 @@
-package uk.co.epii.conservatives.williamcavendishbentinck.stubs;
+package uk.co.epii.politics.williamcavendishbentinck.stubs;
 
-import uk.co.epii.conservatives.williamcavendishbentinck.tables.DeliveryPointAddress;
+import uk.co.epii.politics.williamcavendishbentinck.tables.DeliveryPointAddress;
 import uk.co.epii.spencerperceval.extensions.ArrayExtensions;
 import uk.co.epii.spencerperceval.extensions.StringExtensions;
 import uk.co.epii.spencerperceval.util.Groupable;

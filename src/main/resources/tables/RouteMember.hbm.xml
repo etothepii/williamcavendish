@@ -4,7 +4,7 @@
  "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="uk.co.epii.conservatives.williamcavendishbentinck.tables.RouteMember" table="RouteMember">
+    <class name="uk.co.epii.politics.williamcavendishbentinck.tables.RouteMember" table="RouteMember">
         <id name="routeId" type="integer" column="ROUTE_ID">
             <generator class="assigned"/>
         </id>

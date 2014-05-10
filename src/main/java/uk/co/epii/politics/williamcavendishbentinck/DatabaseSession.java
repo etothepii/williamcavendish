@@ -1,14 +1,10 @@
-package uk.co.epii.conservatives.williamcavendishbentinck;
+package uk.co.epii.politics.williamcavendishbentinck;
 
 import org.hibernate.SessionFactory;
-import uk.co.epii.conservatives.williamcavendishbentinck.tables.BLPU;
-import uk.co.epii.conservatives.williamcavendishbentinck.tables.DeliveryPointAddress;
-import uk.co.epii.conservatives.williamcavendishbentinck.tables.Dwelling;
-import uk.co.epii.conservatives.williamcavendishbentinck.tables.Postcode;
+import uk.co.epii.politics.williamcavendishbentinck.tables.Postcode;
 import uk.co.epii.spencerperceval.tuple.Duple;
 
 import java.awt.*;
-import java.awt.geom.Point2D;
 import java.util.Collection;
 import java.util.List;
 

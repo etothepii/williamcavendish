@@ -4,7 +4,7 @@
  "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="uk.co.epii.conservatives.williamcavendishbentinck.tables.Dwelling" table="Dwelling">
+    <class name="uk.co.epii.politics.williamcavendishbentinck.tables.Dwelling" table="Dwelling">
         <id name="larn" type="string" column="LARN">
             <generator class="assigned"/>
         </id>
