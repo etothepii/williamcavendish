@@ -21,6 +21,6 @@ public interface DatabaseSession {
     public Collection<Postcode> getPostcodesWithin(Rectangle rectangle);
     public <A, B> List<Duple<A, B>> fromPostcode(String postcode, Class<A> classA, Class<B> classB, String joinColumn, String orderColumn);
     public <A, B> List<Duple<A, B>> containedWithin(Rectangle rectangle, Class<A> classA, Class<B> classB, String joinColumn, String orderColumn);
-    public void upload(List list);
+    public void upload(Collection list);
 
 }
