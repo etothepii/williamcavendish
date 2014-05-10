@@ -7,9 +7,13 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import uk.co.epii.politics.williamcavendishbentinck.extensions.DeliveryPointAddressExtensions;
 import uk.co.epii.politics.williamcavendishbentinck.tables.BLPU;
 import uk.co.epii.politics.williamcavendishbentinck.tables.DeliveryPointAddress;
+import uk.co.epii.politics.williamcavendishbentinck.tables.Postcode;
 import uk.co.epii.spencerperceval.tuple.Duple;
 import java.awt.*;
+import java.util.Collection;
 import java.util.List;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * User: James Robinson
@@ -48,6 +52,13 @@ public class DatabaseSessionTest {
                     DeliveryPointAddressExtensions.getAddress(duple.getSecond()),
                     duple.getFirst().getXCoordinate(), duple.getFirst().getYCoordinate()));
         }
+    }
+
+    @Test
+    public void containedWithinTest2() {
+        Collection<Postcode> postcodes =
+                databaseSessionImpl.getPostcodesWithin(new Rectangle(537820, 178220, 210, 120));
+        assertTrue(postcodes.size() >= 9);
     }
 
 }
