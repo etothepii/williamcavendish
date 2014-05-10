@@ -7,6 +7,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import uk.co.epii.politics.williamcavendishbentinck.extensions.DeliveryPointAddressExtensions;
 import uk.co.epii.politics.williamcavendishbentinck.tables.BLPU;
 import uk.co.epii.politics.williamcavendishbentinck.tables.DeliveryPointAddress;
+import uk.co.epii.politics.williamcavendishbentinck.tables.Postcode;
 import uk.co.epii.spencerperceval.tuple.Duple;
 import java.awt.*;
 import java.util.Collection;
