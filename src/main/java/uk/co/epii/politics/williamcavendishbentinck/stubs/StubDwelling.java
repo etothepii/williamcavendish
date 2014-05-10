@@ -103,8 +103,22 @@ public class StubDwelling implements Groupable<StubDwelling> {
         String[][] linedUp = getLinedUpAddresses(
                 NulllessCopy(this.address, "NULL_FILLER"),
                 NulllessCopy(other.address, "NULL_FILLER"));
-        return ArrayExtensions.d(linedUp[0], linedUp[1]);
+        if (linedUp == null) {
+            return allDifferentD(other);
+        }
+        else {
+            return ArrayExtensions.d(linedUp[0], linedUp[1]);
+        }
     }
+
+  private int allDifferentD(StubDwelling other) {
+    if (this.address.length > other.address.length) {
+      return ArrayExtensions.d(this.address, null);
+    }
+    else {
+      return ArrayExtensions.d(other.address, null);
+    }
+  }
 
     private String[] NulllessCopy(String[] address, String null_filler) {
         String[] copy = Arrays.copyOf(address, address.length);

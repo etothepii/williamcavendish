@@ -41,6 +41,20 @@ public class StubDwellingTests {
         assertEquals(3, common.d(other));
     }
 
+  @Test
+  public void getDifferenceTest2() {
+    StubDwelling common = new StubDwelling(new String[] {"5", "ABBEY ROAD", "BLIDWORTH", "MANSFIELD", "NOTTS"});
+    StubDwelling other = new StubDwelling(new String[] {"4A", "ST FRIDESWIDES MEWS", "LODRE STREET", "LONDON"});
+    assertEquals(31, common.d(other));
+  }
+
+  @Test
+  public void getDifferenceTest3() {
+    StubDwelling common = new StubDwelling(new String[] {"4A", "ST FRIDESWIDES MEWS", "LODRE STREET", "LONDON"});
+    StubDwelling other = new StubDwelling(new String[] {"5", "ABBEY ROAD", "BLIDWORTH", "MANSFIELD", "NOTTS"});
+    assertEquals(31, common.d(other));
+  }
+
     @Test
     public void commonTest() {
         StubDwelling a = new StubDwelling(new String[] {"4A", "ST FRIDESWIDES MEWS", "LODRE STREET", "LONDON"});
