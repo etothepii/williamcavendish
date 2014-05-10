@@ -1,6 +1,4 @@
-package uk.co.epii.conservatives.williamcavendishbentinck.tables;
-
-import java.sql.Date;
+package uk.co.epii.politics.williamcavendishbentinck.tables;
 
 
 public class RouteMember {

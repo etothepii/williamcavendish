@@ -4,7 +4,7 @@
  "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="uk.co.epii.conservatives.williamcavendishbentinck.tables.DeliveryPointAddress" table="DeliveryPointAddress">
+    <class name="uk.co.epii.politics.williamcavendishbentinck.tables.DeliveryPointAddress" table="DeliveryPointAddress">
         <id name="uprn" type="long" column="UPRN">
             <generator class="assigned"/>
         </id>

@@ -1,8 +1,7 @@
-package uk.co.epii.conservatives.williamcavendishbentinck.stubs;
+package uk.co.epii.politics.williamcavendishbentinck.stubs;
 
-import junit.framework.Assert;
 import org.junit.Test;
-import uk.co.epii.conservatives.williamcavendishbentinck.tables.Dwelling;
+import uk.co.epii.politics.williamcavendishbentinck.tables.Dwelling;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
@@ -41,6 +40,20 @@ public class StubDwellingTests {
         StubDwelling other = new StubDwelling(new String[] {"4A", "ST FRIDESWIDES MEWS", "LODRE STREET", "LONDON"});
         assertEquals(3, common.d(other));
     }
+
+  @Test
+  public void getDifferenceTest2() {
+    StubDwelling common = new StubDwelling(new String[] {"5", "ABBEY ROAD", "BLIDWORTH", "MANSFIELD", "NOTTS"});
+    StubDwelling other = new StubDwelling(new String[] {"4A", "ST FRIDESWIDES MEWS", "LODRE STREET", "LONDON"});
+    assertEquals(31, common.d(other));
+  }
+
+  @Test
+  public void getDifferenceTest3() {
+    StubDwelling common = new StubDwelling(new String[] {"4A", "ST FRIDESWIDES MEWS", "LODRE STREET", "LONDON"});
+    StubDwelling other = new StubDwelling(new String[] {"5", "ABBEY ROAD", "BLIDWORTH", "MANSFIELD", "NOTTS"});
+    assertEquals(31, common.d(other));
+  }
 
     @Test
     public void commonTest() {

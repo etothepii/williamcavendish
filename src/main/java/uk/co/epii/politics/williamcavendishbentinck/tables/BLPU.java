@@ -1,4 +1,4 @@
-package uk.co.epii.conservatives.williamcavendishbentinck.tables;
+package uk.co.epii.politics.williamcavendishbentinck.tables;
 
 import java.sql.Date;
 

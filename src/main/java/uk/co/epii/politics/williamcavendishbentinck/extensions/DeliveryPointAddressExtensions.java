@@ -1,6 +1,6 @@
-package uk.co.epii.conservatives.williamcavendishbentinck.extensions;
+package uk.co.epii.politics.williamcavendishbentinck.extensions;
 
-import uk.co.epii.conservatives.williamcavendishbentinck.tables.DeliveryPointAddress;
+import uk.co.epii.politics.williamcavendishbentinck.tables.DeliveryPointAddress;
 
 import java.util.ArrayList;
 
