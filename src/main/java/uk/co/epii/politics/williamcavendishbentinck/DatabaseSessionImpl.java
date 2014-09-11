@@ -216,12 +216,13 @@ public class DatabaseSessionImpl implements DatabaseSession {
         }
     }
 
-    public void upload(List list) {
+    public void upload(Collection collection) {
         Session session = getSessionFactory().openSession();
         session.beginTransaction();
         try {
-            for (int i = 0; i < list.size(); i++) {
-                Object object = list.get(i);
+            int i = 0;
+            for (Object object : collection) {
+                i++;
                 session.save(object);
                 if (i % 20 == 0) {
                     session.flush();
