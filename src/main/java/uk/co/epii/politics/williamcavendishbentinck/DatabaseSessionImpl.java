@@ -25,12 +25,28 @@ public class DatabaseSessionImpl implements DatabaseSession {
     private SessionFactory sessionFactory;
     private ServiceRegistry serviceRegistry;
     private Configuration configuration;
-    private String rawDwellingsFromPostcodeSql = "SELECT %1$s.* FROM %2$s a LEFT JOIN %3$s b ON a.%4$s = b.%4$s WHERE a.POSTCODE = :postcode ORDER BY a.%5$s";
-    private String rawDwellingsFromRectangleSql = "SELECT %1$s.* FROM %2$s a LEFT JOIN %3$s b ON a.%4$s = b.%4$s WHERE a.X_COORDINATE >= :minX AND a.X_COORDINATE <= :maxX AND a.Y_COORDINATE >= :minY AND a.Y_COORDINATE <= :maxY ORDER BY a.%5$s";
+    private String rawDwellingsFromPostcodeSql =
+            "SELECT %1$s.* FROM %2$s a LEFT JOIN %3$s b ON a.%4$s = b.%4$s LEFT JOIN " +
+                    "Classification c ON a.UPRN = c.UPRN " +
+            "WHERE (c.UPRN IS NULL OR SUBSTR(c.CLASSIFICATION_CODE,1,1) = 'R') AND " +
+                    "a.POSTCODE = :postcode ORDER BY a.%5$s";
+    private String rawDwellingsFromRectangleSql =
+            "SELECT %1$s.* FROM %2$s a LEFT JOIN %3$s b ON a.%4$s = b.%4$s LEFT JOIN " +
+                    "Classification c ON a.UPRN = c.UPRN " +
+            "WHERE (c.UPRN IS NULL OR SUBSTR(c.CLASSIFICATION_CODE,1,1) = 'R') AND " +
+                    "a.X_COORDINATE >= :minX AND a.X_COORDINATE <= :maxX AND " +
+                    "a.Y_COORDINATE >= :minY AND a.Y_COORDINATE <= :maxY ORDER BY a.%5$s";
     private String rawPostcodeFromPostcodeSql = "SELECT * FROM Postcode WHERE POSTCODE = :postcode";
     private String rawPostcodesFromPostcodeRegexpSql = "SELECT * FROM Postcode WHERE POSTCODE RLIKE :postcode";
-    private String rawPostcodesFromRectangleSql = "SELECT * FROM Postcode WHERE X_COORDINATE >= :minX AND X_COORDINATE <= :maxX AND Y_COORDINATE >= :minY AND Y_COORDINATE <= :maxY";
-    private String rawPostcodesFromBLPURectangleSql = "SELECT p.* FROM Postcode p INNER JOIN DeliveryPointAddress a ON a.POSTCODE = p.POSTCODE INNER JOIN BLPU b ON b.UPRN = a.UPRN WHERE b.X_COORDINATE >= :minX AND b.X_COORDINATE <= :maxX AND b.Y_COORDINATE >= :minY AND b.Y_COORDINATE <= :maxY GROUP BY a.POSTCODE";
+    private String rawPostcodesFromRectangleSql =
+            "SELECT * FROM Postcode " +
+            "WHERE X_COORDINATE >= :minX AND X_COORDINATE <= :maxX AND Y_COORDINATE >= :minY AND Y_COORDINATE <= :maxY";
+    private String rawPostcodesFromBLPURectangleSql =
+            "SELECT p.* FROM Postcode p " +
+                    "INNER JOIN DeliveryPointAddress a ON a.POSTCODE = p.POSTCODE " +
+                    "INNER JOIN BLPU b ON b.UPRN = a.UPRN " +
+            "WHERE b.X_COORDINATE >= :minX AND b.X_COORDINATE <= :maxX " +
+                    "AND b.Y_COORDINATE >= :minY AND b.Y_COORDINATE <= :maxY GROUP BY a.POSTCODE";
 
     public DatabaseSessionImpl() {
         try {
