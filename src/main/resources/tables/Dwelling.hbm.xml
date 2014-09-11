@@ -5,10 +5,12 @@
 
 <hibernate-mapping>
     <class name="uk.co.epii.politics.williamcavendishbentinck.tables.Dwelling" table="Dwelling">
+        <id name="larn" type="string" column="LARN">
+            <generator class="assigned"/>
+        </id>
         <property name="voaAddress" column="VOA_ADDRESS" type="string" />
         <property name="postcode" column="POSTCODE" type="string" />
         <property name="councilTaxBand" column="COUNCIL_TAX_BAND" type="character" />
-        <property name="larn" column="LARN" type="string" />
         <property name="accessibility" column="ACCESSIBILITY" type="character" />
         <property name="uprn" column="UPRN" type="long" />
         <property name="XCoordinateOverride" column="X_COORDINATE_OVERRIDE" type="float" />
