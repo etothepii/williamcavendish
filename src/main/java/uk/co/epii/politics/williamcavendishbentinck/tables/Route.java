@@ -1,27 +1,24 @@
 package uk.co.epii.politics.williamcavendishbentinck.tables;
 
 import java.sql.Date;
+import java.sql.Blob;
 
 
 public class Route {
 
     private int id;
     private String name;
-    private Float minX;
-    private Float minY;
-    private Float maxX;
-    private Float maxY;
+    private int boundedArea;
     private Integer deliveredBy;
+    private Blob boundary;
 
     public Route () {}
-    public Route (int id, String name, Float minX, Float minY, Float maxX, Float maxY, Integer deliveredBy) {
+    public Route (int id, String name, int boundedArea, Integer deliveredBy, Blob boundary) {
         this.id = id;
         this.name = name;
-        this.minX = minX;
-        this.minY = minY;
-        this.maxX = maxX;
-        this.maxY = maxY;
+        this.boundedArea = boundedArea;
         this.deliveredBy = deliveredBy;
+        this.boundary = boundary;
     }
 
     public int getId() {
@@ -40,36 +37,12 @@ public class Route {
         this.name = name;
     }
 
-    public Float getMinX() {
-        return minX;
+    public int getBoundedArea() {
+        return boundedArea;
     }
 
-    public void setMinX(Float minX) {
-        this.minX = minX;
-    }
-
-    public Float getMinY() {
-        return minY;
-    }
-
-    public void setMinY(Float minY) {
-        this.minY = minY;
-    }
-
-    public Float getMaxX() {
-        return maxX;
-    }
-
-    public void setMaxX(Float maxX) {
-        this.maxX = maxX;
-    }
-
-    public Float getMaxY() {
-        return maxY;
-    }
-
-    public void setMaxY(Float maxY) {
-        this.maxY = maxY;
+    public void setBoundedArea(int boundedArea) {
+        this.boundedArea = boundedArea;
     }
 
     public Integer getDeliveredBy() {
@@ -78,6 +51,14 @@ public class Route {
 
     public void setDeliveredBy(Integer deliveredBy) {
         this.deliveredBy = deliveredBy;
+    }
+
+    public Blob getBoundary() {
+        return boundary;
+    }
+
+    public void setBoundary(Blob boundary) {
+        this.boundary = boundary;
     }
 
 }

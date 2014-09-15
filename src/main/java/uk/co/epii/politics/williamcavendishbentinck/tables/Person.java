@@ -1,6 +1,7 @@
 package uk.co.epii.politics.williamcavendishbentinck.tables;
 
 import java.sql.Date;
+import java.sql.Blob;
 
 
 public class Person {

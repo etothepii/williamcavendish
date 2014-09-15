@@ -4,13 +4,12 @@
  "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="uk.co.epii.politics.williamcavendishbentinck.tables.Route" table="Route">
+    <class name="uk.co.epii.politics.williamcavendishbentinck.tables.BoundedArea" table="BoundedArea">
         <id name="id" type="integer" column="ID">
             <generator class="assigned"/>
         </id>
+        <property name="parent" column="PARENT" type="integer" />
         <property name="name" column="NAME" type="string" />
-        <property name="boundedArea" column="BOUNDED_AREA" type="integer" />
-        <property name="deliveredBy" column="DELIVERED_BY" type="integer" />
         <property name="boundary" column="BOUNDARY" type="blob" />
     </class>
 </hibernate-mapping>
