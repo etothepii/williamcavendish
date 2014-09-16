@@ -1,17 +1,18 @@
 package uk.co.epii.politics.williamcavendishbentinck.tables;
 
 import java.sql.Date;
+import java.sql.Blob;
 
 
 public class RouteMember {
 
     private int routeId;
-    private String larn;
+    private long uprn;
 
     public RouteMember () {}
-    public RouteMember (int routeId, String larn) {
+    public RouteMember (int routeId, long uprn) {
         this.routeId = routeId;
-        this.larn = larn;
+        this.uprn = uprn;
     }
 
     public int getRouteId() {
@@ -22,12 +23,12 @@ public class RouteMember {
         this.routeId = routeId;
     }
 
-    public String getLarn() {
-        return larn;
+    public long getUprn() {
+        return uprn;
     }
 
-    public void setLarn(String larn) {
-        this.larn = larn;
+    public void setUprn(long uprn) {
+        this.uprn = uprn;
     }
 
 }
