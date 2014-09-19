@@ -27,16 +27,6 @@ public class DatabaseSessionTest {
     }
 
     @Test
-    public void fromPostcodeTest() {
-        for (Duple<DeliveryPointAddress, BLPU> duple : databaseSessionImpl.fromPostcode(
-                "E14 0DG", DeliveryPointAddress.class, BLPU.class, "UPRN", "UPRN")) {
-            System.out.println(String.format("%s: (%.2f, %.2f)",
-                    DeliveryPointAddressExtensions.getAddress(duple.getFirst()),
-                    duple.getSecond().getXCoordinate(), duple.getSecond().getYCoordinate()));
-        }
-    }
-
-    @Test
     public void containedWithinTest() {
         List<Duple<BLPU, DeliveryPointAddress>> list = databaseSessionImpl.containedWithin(
                 new Rectangle(537483, 180935, 67, 10), BLPU.class, DeliveryPointAddress.class, "UPRN", "UPRN");

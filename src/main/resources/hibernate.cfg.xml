@@ -12,8 +12,10 @@
         </property>
         <mapping resource="tables/BLPU.hbm.xml"/>
         <mapping resource="tables/DeliveryPointAddress.hbm.xml"/>
-        <mapping resource="tables/Dwelling.hbm.xml"/>
-        <mapping resource="tables/Postcode.hbm.xml"/>
+        <mapping resource="tables/BoundedArea.hbm.xml"/>
+        <mapping resource="tables/Classification.hbm.xml"/>
+        <mapping resource="tables/Leaflet.hbm.xml"/>
+        <mapping resource="tables/LeafletMap.hbm.xml"/>
         <mapping resource="tables/Person.hbm.xml"/>
         <mapping resource="tables/Route.hbm.xml"/>
         <mapping resource="tables/RouteMember.hbm.xml"/>
