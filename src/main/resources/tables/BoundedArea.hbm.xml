@@ -9,6 +9,8 @@
             <generator class="assigned"/>
         </id>
         <property name="parent" column="PARENT" type="integer" />
+        <property name="owner" column="OWNER" type="integer" />
+        <property name="ownerGroup" column="OWNER_GROUP" type="integer" />
         <property name="name" column="NAME" type="string" />
         <property name="boundary" column="BOUNDARY" type="blob" />
     </class>

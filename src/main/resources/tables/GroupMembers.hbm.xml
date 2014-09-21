@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+ "-//Hibernate/Hibernate Mapping DTD//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="uk.co.epii.politics.williamcavendishbentinck.tables.GroupMembers" table="GroupMembers">
+        <id name="id" type="integer" column="ID">
+            <generator class="assigned"/>
+        </id>
+        <property name="`group`" column="`GROUP`" type="integer" />
+        <property name="member" column="MEMBER" type="integer" />
+        <property name="groupMember" column="GROUP_MEMBER" type="integer" />
+    </class>
+</hibernate-mapping>

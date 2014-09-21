@@ -9,14 +9,18 @@ public class Route {
     private int id;
     private String name;
     private int boundedArea;
+    private Integer owner;
+    private Integer ownerGroup;
     private Integer deliveredBy;
     private Blob boundary;
 
     public Route () {}
-    public Route (int id, String name, int boundedArea, Integer deliveredBy, Blob boundary) {
+    public Route (int id, String name, int boundedArea, Integer owner, Integer ownerGroup, Integer deliveredBy, Blob boundary) {
         this.id = id;
         this.name = name;
         this.boundedArea = boundedArea;
+        this.owner = owner;
+        this.ownerGroup = ownerGroup;
         this.deliveredBy = deliveredBy;
         this.boundary = boundary;
     }
@@ -43,6 +47,22 @@ public class Route {
 
     public void setBoundedArea(int boundedArea) {
         this.boundedArea = boundedArea;
+    }
+
+    public Integer getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Integer owner) {
+        this.owner = owner;
+    }
+
+    public Integer getOwnerGroup() {
+        return ownerGroup;
+    }
+
+    public void setOwnerGroup(Integer ownerGroup) {
+        this.ownerGroup = ownerGroup;
     }
 
     public Integer getDeliveredBy() {

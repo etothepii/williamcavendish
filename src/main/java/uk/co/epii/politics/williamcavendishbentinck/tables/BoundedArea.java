@@ -8,13 +8,17 @@ public class BoundedArea {
 
     private int id;
     private Integer parent;
+    private Integer owner;
+    private Integer ownerGroup;
     private String name;
     private Blob boundary;
 
     public BoundedArea () {}
-    public BoundedArea (int id, Integer parent, String name, Blob boundary) {
+    public BoundedArea (int id, Integer parent, Integer owner, Integer ownerGroup, String name, Blob boundary) {
         this.id = id;
         this.parent = parent;
+        this.owner = owner;
+        this.ownerGroup = ownerGroup;
         this.name = name;
         this.boundary = boundary;
     }
@@ -33,6 +37,22 @@ public class BoundedArea {
 
     public void setParent(Integer parent) {
         this.parent = parent;
+    }
+
+    public Integer getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Integer owner) {
+        this.owner = owner;
+    }
+
+    public Integer getOwnerGroup() {
+        return ownerGroup;
+    }
+
+    public void setOwnerGroup(Integer ownerGroup) {
+        this.ownerGroup = ownerGroup;
     }
 
     public String getName() {

@@ -24,7 +24,7 @@ public class DatabaseSessionImpl implements DatabaseSession {
     private ServiceRegistry serviceRegistry;
     private Configuration configuration;
     private String rawDwellingsFromRectangleSql =
-            "SELECT %1$s.* FROM %2$s a LEFT JOIN %3$s b ON a.%4$s = b.%4$s LEFT JOIN " +
+            "SELECT %1$s.* FROM %2$s a INNER JOIN %3$s b ON a.%4$s = b.%4$s INNER JOIN " +
                     "Classification c ON a.UPRN = c.UPRN " +
             "WHERE (c.UPRN IS NULL OR SUBSTR(c.CLASSIFICATION_CODE,1,1) = 'R') AND " +
                     "a.X_COORDINATE >= :minX AND a.X_COORDINATE <= :maxX AND " +
