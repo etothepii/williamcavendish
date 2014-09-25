@@ -6,23 +6,33 @@ import java.sql.Blob;
 
 public class Leaflet {
 
-    private int id;
+    private String id;
+    private Date deliveryCommenced;
     private String title;
     private String description;
 
     public Leaflet () {}
-    public Leaflet (int id, String title, String description) {
+    public Leaflet (String id, Date deliveryCommenced, String title, String description) {
         this.id = id;
+        this.deliveryCommenced = deliveryCommenced;
         this.title = title;
         this.description = description;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
+    }
+
+    public Date getDeliveryCommenced() {
+        return deliveryCommenced;
+    }
+
+    public void setDeliveryCommenced(Date deliveryCommenced) {
+        this.deliveryCommenced = deliveryCommenced;
     }
 
     public String getTitle() {

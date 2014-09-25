@@ -7,14 +7,14 @@ import java.sql.Blob;
 public class GroupMembers {
 
     private int id;
-    private int `group`;
+    private int group;
     private Integer member;
     private Integer groupMember;
 
     public GroupMembers () {}
-    public GroupMembers (int id, int `group`, Integer member, Integer groupMember) {
+    public GroupMembers (int id, int group, Integer member, Integer groupMember) {
         this.id = id;
-        this.`group` = `group`;
+        this.group = group;
         this.member = member;
         this.groupMember = groupMember;
     }
@@ -27,12 +27,12 @@ public class GroupMembers {
         this.id = id;
     }
 
-    public int get`group`() {
-        return `group`;
+    public int getGroup() {
+        return group;
     }
 
-    public void set`group`(int `group`) {
-        this.`group` = `group`;
+    public void setGroup(int group) {
+        this.group = group;
     }
 
     public Integer getMember() {

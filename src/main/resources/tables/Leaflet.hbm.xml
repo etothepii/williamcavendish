@@ -5,9 +5,10 @@
 
 <hibernate-mapping>
     <class name="uk.co.epii.politics.williamcavendishbentinck.tables.Leaflet" table="Leaflet">
-        <id name="id" type="integer" column="ID">
+        <id name="id" type="string" column="ID">
             <generator class="assigned"/>
         </id>
+        <property name="deliveryCommenced" column="DELIVERY_COMMENCED" type="date" />
         <property name="title" column="TITLE" type="string" />
         <property name="description" column="DESCRIPTION" type="string" />
     </class>

@@ -12,6 +12,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * User: James Robinson
@@ -29,6 +30,8 @@ public class DatabaseSessionImpl implements DatabaseSession {
             "WHERE (c.UPRN IS NULL OR SUBSTR(c.CLASSIFICATION_CODE,1,1) = 'R') AND " +
                     "a.X_COORDINATE >= :minX AND a.X_COORDINATE <= :maxX AND " +
                     "a.Y_COORDINATE >= :minY AND a.Y_COORDINATE <= :maxY ORDER BY a.%5$s";
+
+    private String rawGetByIdSql = "SELECT * FROM %1$s WHERE ID IN (%2$s)";
 
     public DatabaseSessionImpl() {
         try {
@@ -104,7 +107,37 @@ public class DatabaseSessionImpl implements DatabaseSession {
         }
     }
 
-    public void upload(Collection collection) {
+  @Override
+  public <T> List<T> getByUuid(Class<T> clazz, UUID... uuids) {
+    Session session = sessionFactory.openSession();
+    try {
+      SQLQuery query = session.createSQLQuery(String.format(rawGetByIdSql, clazz.toString(), commaSeparatedList(uuids)));
+      query.addEntity(clazz);
+      return query.list();
+    }
+    finally {
+      session.close();
+    }
+  }
+
+  private String commaSeparatedList(UUID[] uuids) {
+    StringBuilder stringBuilder = new StringBuilder();
+    boolean first = true;
+    for (UUID uuid : uuids) {
+      if (first) {
+        first = false;
+      }
+      else {
+        stringBuilder.append(", ");
+      }
+      stringBuilder.append('\'');
+      stringBuilder.append(uuid.toString());
+      stringBuilder.append('\'');
+    }
+    return stringBuilder.toString();
+  }
+
+  public void upload(Collection collection) {
         Session session = getSessionFactory().openSession();
         session.beginTransaction();
         try {

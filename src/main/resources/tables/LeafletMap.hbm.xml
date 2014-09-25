@@ -10,6 +10,7 @@
         </id>
         <property name="leaflet" column="LEAFLET" type="integer" />
         <property name="route" column="ROUTE" type="integer" />
+        <property name="delivered" column="DELIVERED" type="date" />
         <property name="deliveredBy" column="DELIVERED_BY" type="integer" />
     </class>
 </hibernate-mapping>

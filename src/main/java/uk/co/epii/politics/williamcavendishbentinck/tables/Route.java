@@ -6,7 +6,7 @@ import java.sql.Blob;
 
 public class Route {
 
-    private int id;
+    private String id;
     private String name;
     private int boundedArea;
     private Integer owner;
@@ -15,7 +15,7 @@ public class Route {
     private Blob boundary;
 
     public Route () {}
-    public Route (int id, String name, int boundedArea, Integer owner, Integer ownerGroup, Integer deliveredBy, Blob boundary) {
+    public Route (String id, String name, int boundedArea, Integer owner, Integer ownerGroup, Integer deliveredBy, Blob boundary) {
         this.id = id;
         this.name = name;
         this.boundedArea = boundedArea;
@@ -25,11 +25,11 @@ public class Route {
         this.boundary = boundary;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

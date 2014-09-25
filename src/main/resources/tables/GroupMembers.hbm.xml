@@ -8,7 +8,7 @@
         <id name="id" type="integer" column="ID">
             <generator class="assigned"/>
         </id>
-        <property name="`group`" column="`GROUP`" type="integer" />
+        <property name="group" column="GROUP" type="integer" />
         <property name="member" column="MEMBER" type="integer" />
         <property name="groupMember" column="GROUP_MEMBER" type="integer" />
     </class>

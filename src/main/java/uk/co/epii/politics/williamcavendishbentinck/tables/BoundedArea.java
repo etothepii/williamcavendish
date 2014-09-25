@@ -6,7 +6,7 @@ import java.sql.Blob;
 
 public class BoundedArea {
 
-    private int id;
+    private String id;
     private Integer parent;
     private Integer owner;
     private Integer ownerGroup;
@@ -14,7 +14,7 @@ public class BoundedArea {
     private Blob boundary;
 
     public BoundedArea () {}
-    public BoundedArea (int id, Integer parent, Integer owner, Integer ownerGroup, String name, Blob boundary) {
+    public BoundedArea (String id, Integer parent, Integer owner, Integer ownerGroup, String name, Blob boundary) {
         this.id = id;
         this.parent = parent;
         this.owner = owner;
@@ -23,11 +23,11 @@ public class BoundedArea {
         this.boundary = boundary;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
