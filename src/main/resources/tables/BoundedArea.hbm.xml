@@ -8,7 +8,7 @@
         <id name="id" type="string" column="ID">
             <generator class="assigned"/>
         </id>
-        <property name="parent" column="PARENT" type="integer" />
+        <property name="parent" column="PARENT" type="string" />
         <property name="owner" column="OWNER" type="integer" />
         <property name="ownerGroup" column="OWNER_GROUP" type="integer" />
         <property name="name" column="NAME" type="string" />

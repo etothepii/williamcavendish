@@ -7,14 +7,14 @@ import java.sql.Blob;
 public class BoundedArea {
 
     private String id;
-    private Integer parent;
+    private String parent;
     private Integer owner;
     private Integer ownerGroup;
     private String name;
     private Blob boundary;
 
     public BoundedArea () {}
-    public BoundedArea (String id, Integer parent, Integer owner, Integer ownerGroup, String name, Blob boundary) {
+    public BoundedArea (String id, String parent, Integer owner, Integer ownerGroup, String name, Blob boundary) {
         this.id = id;
         this.parent = parent;
         this.owner = owner;
@@ -31,11 +31,11 @@ public class BoundedArea {
         this.id = id;
     }
 
-    public Integer getParent() {
+    public String getParent() {
         return parent;
     }
 
-    public void setParent(Integer parent) {
+    public void setParent(String parent) {
         this.parent = parent;
     }
 
