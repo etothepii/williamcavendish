@@ -8,14 +8,14 @@ public class Route {
 
     private String id;
     private String name;
-    private int boundedArea;
+    private String boundedArea;
     private Integer owner;
     private Integer ownerGroup;
     private Integer deliveredBy;
     private Blob boundary;
 
     public Route () {}
-    public Route (String id, String name, int boundedArea, Integer owner, Integer ownerGroup, Integer deliveredBy, Blob boundary) {
+    public Route (String id, String name, String boundedArea, Integer owner, Integer ownerGroup, Integer deliveredBy, Blob boundary) {
         this.id = id;
         this.name = name;
         this.boundedArea = boundedArea;
@@ -41,11 +41,11 @@ public class Route {
         this.name = name;
     }
 
-    public int getBoundedArea() {
+    public String getBoundedArea() {
         return boundedArea;
     }
 
-    public void setBoundedArea(int boundedArea) {
+    public void setBoundedArea(String boundedArea) {
         this.boundedArea = boundedArea;
     }
 

@@ -9,7 +9,7 @@
             <generator class="assigned"/>
         </id>
         <property name="name" column="NAME" type="string" />
-        <property name="boundedArea" column="BOUNDED_AREA" type="integer" />
+        <property name="boundedArea" column="BOUNDED_AREA" type="string" />
         <property name="owner" column="OWNER" type="integer" />
         <property name="ownerGroup" column="OWNER_GROUP" type="integer" />
         <property name="deliveredBy" column="DELIVERED_BY" type="integer" />
