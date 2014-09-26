@@ -7,13 +7,13 @@ import java.sql.Blob;
 public class LeafletMap {
 
     private String id;
-    private int leaflet;
-    private int route;
+    private String leaflet;
+    private String route;
     private Date delivered;
     private Integer deliveredBy;
 
     public LeafletMap () {}
-    public LeafletMap (String id, int leaflet, int route, Date delivered, Integer deliveredBy) {
+    public LeafletMap (String id, String leaflet, String route, Date delivered, Integer deliveredBy) {
         this.id = id;
         this.leaflet = leaflet;
         this.route = route;
@@ -29,19 +29,19 @@ public class LeafletMap {
         this.id = id;
     }
 
-    public int getLeaflet() {
+    public String getLeaflet() {
         return leaflet;
     }
 
-    public void setLeaflet(int leaflet) {
+    public void setLeaflet(String leaflet) {
         this.leaflet = leaflet;
     }
 
-    public int getRoute() {
+    public String getRoute() {
         return route;
     }
 
-    public void setRoute(int route) {
+    public void setRoute(String route) {
         this.route = route;
     }
 
