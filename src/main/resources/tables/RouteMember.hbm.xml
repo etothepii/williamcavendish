@@ -5,9 +5,10 @@
 
 <hibernate-mapping>
     <class name="uk.co.epii.politics.williamcavendishbentinck.tables.RouteMember" table="RouteMember">
-        <id name="routeId" type="integer" column="ROUTE_ID">
+        <id name="id" type="integer" column="ID">
             <generator class="assigned"/>
         </id>
+        <property name="route" column="ROUTE" type="string" />
         <property name="uprn" column="UPRN" type="long" />
     </class>
 </hibernate-mapping>

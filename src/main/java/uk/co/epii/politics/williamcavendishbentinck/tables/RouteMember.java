@@ -6,21 +6,31 @@ import java.sql.Blob;
 
 public class RouteMember {
 
-    private int routeId;
+    private int id;
+    private String route;
     private long uprn;
 
     public RouteMember () {}
-    public RouteMember (int routeId, long uprn) {
-        this.routeId = routeId;
+    public RouteMember (int id, String route, long uprn) {
+        this.id = id;
+        this.route = route;
         this.uprn = uprn;
     }
 
-    public int getRouteId() {
-        return routeId;
+    public int getId() {
+        return id;
     }
 
-    public void setRouteId(int routeId) {
-        this.routeId = routeId;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getRoute() {
+        return route;
+    }
+
+    public void setRoute(String route) {
+        this.route = route;
     }
 
     public long getUprn() {
