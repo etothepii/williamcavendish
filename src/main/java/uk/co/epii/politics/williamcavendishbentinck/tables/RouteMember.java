@@ -6,22 +6,22 @@ import java.sql.Blob;
 
 public class RouteMember {
 
-    private int id;
+    private String id;
     private String route;
     private long uprn;
 
     public RouteMember () {}
-    public RouteMember (int id, String route, long uprn) {
+    public RouteMember (String id, String route, long uprn) {
         this.id = id;
         this.route = route;
         this.uprn = uprn;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
