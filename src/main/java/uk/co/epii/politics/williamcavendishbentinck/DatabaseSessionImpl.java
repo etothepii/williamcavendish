@@ -111,7 +111,7 @@ public class DatabaseSessionImpl implements DatabaseSession {
   public <T> List<T> getByUuid(Class<T> clazz, UUID... uuids) {
     Session session = sessionFactory.openSession();
     try {
-      SQLQuery query = session.createSQLQuery(String.format(rawGetByIdSql, clazz.toString(), commaSeparatedList(uuids)));
+      SQLQuery query = session.createSQLQuery(String.format(rawGetByIdSql, clazz.getSimpleName(), commaSeparatedList(uuids)));
       query.addEntity(clazz);
       return query.list();
     }
