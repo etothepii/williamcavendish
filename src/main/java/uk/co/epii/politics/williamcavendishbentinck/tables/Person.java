@@ -11,14 +11,18 @@ public class Person {
     private String otherNames;
     private String title;
     private String mainContactNumber;
+    private String deliveryAddress;
+    private String email;
 
     public Person () {}
-    public Person (int id, String surname, String otherNames, String title, String mainContactNumber) {
+    public Person (int id, String surname, String otherNames, String title, String mainContactNumber, String deliveryAddress, String email) {
         this.id = id;
         this.surname = surname;
         this.otherNames = otherNames;
         this.title = title;
         this.mainContactNumber = mainContactNumber;
+        this.deliveryAddress = deliveryAddress;
+        this.email = email;
     }
 
     public int getId() {
@@ -59,6 +63,22 @@ public class Person {
 
     public void setMainContactNumber(String mainContactNumber) {
         this.mainContactNumber = mainContactNumber;
+    }
+
+    public String getDeliveryAddress() {
+        return deliveryAddress;
+    }
+
+    public void setDeliveryAddress(String deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 }
