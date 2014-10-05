@@ -13,9 +13,10 @@ public class Person {
     private String mainContactNumber;
     private String deliveryAddress;
     private String email;
+    private String googleId;
 
     public Person () {}
-    public Person (int id, String surname, String otherNames, String title, String mainContactNumber, String deliveryAddress, String email) {
+    public Person (int id, String surname, String otherNames, String title, String mainContactNumber, String deliveryAddress, String email, String googleId) {
         this.id = id;
         this.surname = surname;
         this.otherNames = otherNames;
@@ -23,6 +24,7 @@ public class Person {
         this.mainContactNumber = mainContactNumber;
         this.deliveryAddress = deliveryAddress;
         this.email = email;
+        this.googleId = googleId;
     }
 
     public int getId() {
@@ -79,6 +81,14 @@ public class Person {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getGoogleId() {
+        return googleId;
+    }
+
+    public void setGoogleId(String googleId) {
+        this.googleId = googleId;
     }
 
 }

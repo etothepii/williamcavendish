@@ -14,5 +14,6 @@
         <property name="mainContactNumber" column="MAIN_CONTACT_NUMBER" type="string" />
         <property name="deliveryAddress" column="DELIVERY_ADDRESS" type="string" />
         <property name="email" column="EMAIL" type="string" />
+        <property name="googleId" column="GOOGLE_ID" type="string" />
     </class>
 </hibernate-mapping>
